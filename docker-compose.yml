@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    container_name: airbnb-clone_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+  postgres:
+    container_name: airbnb-clone_postgres
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/postgresql/data
+    environment:
+      - POSTGRES_DB=airbnb_clone_development
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+
+volumes:
+  postgres:
