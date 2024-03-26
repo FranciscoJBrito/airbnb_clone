@@ -17,6 +17,9 @@ WORKDIR /usr/src/app
 # Copying the Gemfile and Gemfile.lock into the image
 COPY Gemfile Gemfile.lock ./
 
+# Installing foreman
+RUN gem install foreman
+
 # Installing the gems
 RUN bundle install
 
@@ -24,7 +27,6 @@ RUN bundle install
 COPY . .
 
 # Exposing the port that our application will run on
-EXPOSE 3000
+EXPOSE 3000:3000
 
-# Running the application
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD [ "bin/dev" ]
