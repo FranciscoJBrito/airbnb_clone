@@ -15,7 +15,10 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= render "partials/header" %>
+
+    <% if controller_name != 'registrations' && controller_name != 'sessions' %>
+      <%= render "partials/header" %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
