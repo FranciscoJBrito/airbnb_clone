@@ -6,6 +6,8 @@ MoneyRails.configure do |config|
   #
   config.default_currency = :usd
 
+  Money.locale_backend = :currency
+
   # Set default bank object
   #
   # Example:
