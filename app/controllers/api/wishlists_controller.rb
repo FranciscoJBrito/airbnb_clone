@@ -5,22 +5,13 @@ module Api
     def create
       wishlist = Wishlist.create!(wishlist_params)
 
-      respond_to do |format|
-        format.json do
-          render json: wishlist.to_json, status: :ok
-        end
-      end
+      render json: wishlist, status: :ok
     end
 
     def destroy
       wishlist = Wishlist.find(params[:id])
       wishlist.destroy
-
-      respond_to do |format|
-        format.json do
-          render json: wishlist.to_json, status: 204
-        end
-      end
+      head :no_content
     end
 
     private

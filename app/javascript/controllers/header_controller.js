@@ -15,7 +15,6 @@ export default class extends Controller {
 
 function openDropdown(element) {
   toggle(element).then(() => {
-    console.log("Enter transition complete");
   });
 }
 

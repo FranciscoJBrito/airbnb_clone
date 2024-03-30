@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :wishlist do
-    user { nil }
-    property { nil }
+    user { FactoryBot.create(:user) }
+    property { FactoryBot.create(:property) }
   end
 end
