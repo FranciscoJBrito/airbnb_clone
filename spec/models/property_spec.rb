@@ -67,5 +67,18 @@ RSpec.describe Property, type: :model do
       expected_average_rating = reviews.map(&:final_rating).sum / reviews.length.to_f
       expect(property.average_final_rating.round(2)).to eq(expected_average_rating.round(2))
     end
+
+    it 'should verify if a property is wishlisted by a user' do
+      FactoryBot.create(:wishlist, user: user, property: property)
+      expect(property.wishlisted_by?(user)).to eq(true)
+    end
+
+    it 'should return available dates' do
+      FactoryBot.create(:reservation, property: property, checking_date: 2.days.ago, checkout_date: Date.tomorrow + 2.days)
+
+      FactoryBot.create(:reservation, property: property, checking_date: Date.tomorrow + 5.days, checkout_date: Date.tomorrow + 10.days)
+
+      expect(property.available_dates).to eq((Date.tomorrow + 2.days).strftime('%e %b')..(Date.tomorrow + 5.days).strftime('%e %b'))
+    end
   end
 end
