@@ -16,9 +16,35 @@ class Property < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :reserved_users, through: :reservations, source: :user, dependent: :destroy
 
+  has_rich_text :description
+
   def update_average_rating
     average_rating = reviews.average(:final_rating)
     update_column(:average_final_rating, average_rating)
+  end
+
+  def average_cleanliness_rating
+    reviews.average(:cleanliness_rating).to_f.round(1)
+  end
+
+  def average_accuracy_rating
+    reviews.average(:accuracy_rating).to_f.round(1)
+  end
+
+  def average_checking_rating
+    reviews.average(:cheking_rating).to_f.round(1)
+  end
+
+  def average_communication_rating
+    reviews.average(:communication_rating).to_f.round(1)
+  end
+
+  def average_location_rating
+    reviews.average(:location_rating).to_f.round(1)
+  end
+
+  def average_value_rating
+    reviews.average(:value_rating).to_f.round(1)
   end
 
   def wishlisted_by?(user = nil)
