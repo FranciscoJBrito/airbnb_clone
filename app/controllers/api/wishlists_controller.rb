@@ -1,4 +1,5 @@
 module Api
+  # WishlistsController class to handle wishlist related requests
   class WishlistsController < ApplicationController
     protect_from_forgery with: :null_session
 

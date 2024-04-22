@@ -1,3 +1,4 @@
+# PropertiesController is responsible for showing the details of a property
 class PropertiesController < ApplicationController
   def show
     @property = Property.includes(:reviews).find(params[:id])

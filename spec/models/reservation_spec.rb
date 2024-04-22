@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
-
   # Create a user to associate with the property
   let(:user) { FactoryBot.create(:user) }
 
@@ -9,7 +8,7 @@ RSpec.describe Reservation, type: :model do
   let(:property) { FactoryBot.create(:property) }
 
   # Create a reservation with the user and property
-  let(:reservation) { FactoryBot.create(:reservation, user: user, property: property) }
+  let(:reservation) { FactoryBot.create(:reservation, user:, property:) }
 
   describe 'validations' do
     subject { reservation }

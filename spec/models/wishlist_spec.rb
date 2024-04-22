@@ -8,7 +8,7 @@ RSpec.describe Wishlist, type: :model do
   let(:property) { FactoryBot.create(:property) }
 
   # Create a wishlist with the user and property
-  let(:wishlist) { FactoryBot.create(:wishlist, user: user, property: property) }
+  let(:wishlist) { FactoryBot.create(:wishlist, user:, property:) }
 
   describe 'associations' do
     it 'should belong to a user' do

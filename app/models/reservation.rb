@@ -1,3 +1,4 @@
+# Reservation model to store the reservation details and validations
 class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :property
@@ -5,6 +6,9 @@ class Reservation < ApplicationRecord
   validates :checking_date, presence: true
   validates :checkout_date, presence: true
 
-  scope :upcoming_reservations, -> { where('checking_date > ?', Date.today).order(:checking_date) }
-  scope :current_reservations, -> { where("checkout_date > ?", Date.today).where("checking_date < ?", Date.today).order(:checkout_date) }
+  scope :upcoming_reservations, -> { where('checking_date > ?', Time.zone.today).order(:checking_date) }
+  scope :current_reservations, lambda {
+                                 where('checking_date < ? AND checkout_date > ?', Time.zone.today, Time.zone.today)
+                                   .order(:checking_date)
+                               }
 end

@@ -1,3 +1,4 @@
+# User model to store the user details and validations.
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -5,8 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :name, presence: true
-  validates :address_1, presence: true
-  validates :address_2, presence: true
+  validates :address_1, presence: true # rubocop:disable Naming/VariableNumber
+  validates :address_2, presence: true # rubocop:disable Naming/VariableNumber
   validates :city, presence: true
   validates :state, presence: true
   validates :country, presence: true

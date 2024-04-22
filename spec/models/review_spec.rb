@@ -8,10 +8,9 @@ RSpec.describe Review, type: :model do
   let(:property) { FactoryBot.create(:property) }
 
   # Create a review to test
-  let(:review) { FactoryBot.create(:review, property: property, user: user) }
+  let(:review) { FactoryBot.create(:review, property:, user:) }
 
   describe 'validations' do
-
     it 'should validate the presence of the content' do
       review.content = nil
       review.valid?
@@ -61,10 +60,14 @@ RSpec.describe Review, type: :model do
 
   describe 'callbacks' do
     it 'should update the final rating' do
-      expected_final_rating = (review.cleanliness_rating + review.accuracy_rating + review.cheking_rating + review.communication_rating + review.location_rating + review.value_rating).to_f / 6.0
+      expected_final_rating = (review.cleanliness_rating +
+                               review.accuracy_rating +
+                               review.cheking_rating +
+                               review.communication_rating +
+                               review.location_rating +
+                               review.value_rating).to_f / 6.0
 
-      expect((review.final_rating).to_f.round(2)).to eq(expected_final_rating.round(2))
-
+      expect(review.final_rating.to_f.round(2)).to eq(expected_final_rating.round(2))
     end
   end
 end

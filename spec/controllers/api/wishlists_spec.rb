@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::WishlistsController, type: :controller do
   let(:user) { FactoryBot.create(:user) }
   let(:property) { FactoryBot.create(:property) }
-  let(:wishlist) { FactoryBot.create(:wishlist, user: user, property: property) }
+  let(:wishlist) { FactoryBot.create(:wishlist, user:, property:) }
 
   describe 'POST #create' do
     it 'creates a new wishlist' do

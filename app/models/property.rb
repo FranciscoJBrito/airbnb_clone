@@ -1,9 +1,10 @@
+# Properties model to store the property details and validations
 class Property < ApplicationRecord
   validates :name, presence: true
   validates :headline, presence: true
   validates :description, presence: true
-  validates :address_1, presence: true
-  validates :address_2, presence: true
+  validates :address_1, presence: true # rubocop:disable Naming/VariableNumber
+  validates :address_2, presence: true # rubocop:disable Naming/VariableNumber
   validates :city, presence: true
   validates :state, presence: true
   validates :country, presence: true
@@ -20,7 +21,7 @@ class Property < ApplicationRecord
 
   def update_average_rating
     average_rating = reviews.average(:final_rating)
-    update_column(:average_final_rating, average_rating)
+    update_column(:average_final_rating, average_rating) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def average_cleanliness_rating
@@ -49,21 +50,27 @@ class Property < ApplicationRecord
 
   def wishlisted_by?(user = nil)
     return false unless user
+
     wishlisted_users.include?(user)
   end
 
-  def available_dates
+  def available_dates # rubocop:disable Metrics/AbcSize
     next_reservation = reservations.upcoming_reservations.first
     current_reservation = reservations.current_reservations.first
-
     if current_reservation.nil? && next_reservation.nil?
-      Date.tomorrow.strftime('%e %b')..(Date.tomorrow + 30.days).strftime('%e %b')
+      date_range(Date.tomorrow, Date.tomorrow + 30.days)
     elsif current_reservation.nil?
-      Date.tomorrow.strftime('%e %b')..next_reservation.checking_date.strftime('%e %b')
+      date_range(Date.tomorrow, next_reservation.checking_date)
     elsif next_reservation.nil?
-      current_reservation.checkout_date.strftime('%e %b')..(Date.tomorrow + 30.days).strftime('%e %b')
+      date_range(current_reservation.checkout_date, Date.tomorrow + 30.days)
     else
-      current_reservation.checkout_date.strftime('%e %b')..next_reservation.checking_date.strftime('%e %b')
+      date_range(current_reservation.checkout_date, next_reservation.checking_date)
     end
+  end
+
+  private
+
+  def date_range(start_date, end_date)
+    start_date.strftime('%e %b')..end_date.strftime('%e %b')
   end
 end
