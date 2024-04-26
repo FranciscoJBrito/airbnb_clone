@@ -4,4 +4,6 @@ class Amenity < ApplicationRecord
   validates :description, presence: true
 
   has_one_attached :icon
+
+  has_many :property_amenities, dependent: :destroy
 end
