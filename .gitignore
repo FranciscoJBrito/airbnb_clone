@@ -42,3 +42,6 @@
 
 # Ignore vscode folder
 .vscode
+
+# Ignore coverage folder
+/coverage
