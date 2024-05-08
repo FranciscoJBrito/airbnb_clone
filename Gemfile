@@ -70,6 +70,7 @@ group :development, :test do
   gem 'rubocop', '~> 1.63', require: false
   gem 'rubocop-rails', require: false
   gem 'shoulda-matchers', '~> 6.0'
+  gem 'simplecov', require: false
 end
 
 group :development do
